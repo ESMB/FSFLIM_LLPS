@@ -50,13 +50,13 @@ thresholded_intensities=binary_im*intensities
 thresholded_lifetimes=binary_im*lifetimes
 
 
-# Convert to wavelength
+# Convert to wavelength- thede are from the fits to the TS Bead Data. 
 m=0.5
 c=460 
 
+# This finds the wavelength at which the intensity is highest.
 max_int=(np.argmax(thresholded_intensities,axis=0)*m+c)*binary_im
 
-
-
+# Show plot- note the vmin and vmax. May need altering depending on the dataset. 
 plt.imshow(max_int,cmap='rainbow',vmin=460,vmax=560)
 plt.colorbar()
