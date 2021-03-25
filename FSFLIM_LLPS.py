@@ -21,7 +21,7 @@ from scipy.spatial import distance
 
 
 # Convert to wavelength- thede are from the fits to the TS Bead Data. 
-m=1.5
+m=0.5
 c=460 
 
 # Read the files 
@@ -140,7 +140,7 @@ axes[0].set_xlabel('Wavelength (nm)')
 axes[1].set_xlabel('Wavelength (nm)')
 axes[0].set_ylabel('Number of Features')
 axes[1].set_ylabel('Number of Features')
-plt.show()
+
 
 
 
