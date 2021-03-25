@@ -17,8 +17,11 @@ import mat73
 from scipy.spatial import distance
 
 
+
+
+
 # Convert to wavelength- thede are from the fits to the TS Bead Data. 
-m=0.5
+m=1.5
 c=460 
 
 # Read the files 
@@ -127,9 +130,49 @@ cents=centre_image_wl.flatten()
 
 
 fig, axes = plt.subplots(nrows=1, ncols=2)
+fig.tight_layout()
+fig.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.5, hspace=0.7)
 axes[0].hist(periph, bins = 20,range=[450,550], rwidth=0.9,color='#0000ff')
 axes[1].hist(cents, bins = 20,range=[450,550], rwidth=0.9,color='#ff0000')
 axes[0].set_title("Periphery")  
 axes[1].set_title("Centre")
+axes[0].set_xlabel('Wavelength (nm)')
+axes[1].set_xlabel('Wavelength (nm)')
+axes[0].set_ylabel('Number of Features')
+axes[1].set_ylabel('Number of Features')
+plt.show()
+
+
+
+
+
+lifetimes_thresh=binary_im*lifetimes
+
+
+def lifetime_hists(wavelength1,wavelength2):
+    
+    wavelength1pos=int((wavelength1-c)/m)
+    wavelength2pos=int((wavelength2-c)/m)
+    
+    print(wavelength1pos)
+    print(wavelength2pos)
+    
+    test_lifetime=lifetimes_thresh[wavelength1pos:wavelength2pos]
+    twod_lifetime=np.mean(test_lifetime,axis=0)
+
+    plt.imshow(twod_lifetime,vmin=1,vmax=2)
+    plt.colorbar()
+    plt.show()
+    
+    
+    textstr='%s nm to %s nm'%(wavelength1,wavelength2)
+    list_lifetimes=twod_lifetime.flatten()
+    real_lifteimes=list_lifetimes[(list_lifetimes>0)]
+    
+    plt.hist(real_lifteimes, bins = 100,range=[1,2], rwidth=0.9,ec='black',color='#ff0000',alpha=0.8)
+    plt.xlabel('Number of pixels')
+    plt.ylabel('Lifetime (ns)')
+    plt.title(textstr)
+
 
 
