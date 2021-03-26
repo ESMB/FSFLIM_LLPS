@@ -142,7 +142,23 @@ axes[0].set_ylabel('Number of Features')
 axes[1].set_ylabel('Number of Features')
 
 
-
+intensities_only_thresh=intensities*binary_im
+intensity_wl=[]
+wl=[]
+for i in range(0,512):
+    wavelength_val=i*m+c
+    plane=intensities_only_thresh[i]
+    plane_list=plane.flatten()
+    values_only=plane_list[plane_list>0]
+    intensity_mean=values_only.mean()
+    
+    intensity_wl.append(intensity_mean)
+    wl.append(wavelength_val)
+    
+    
+plt.plot(wl,intensity_wl)
+    
+    
 
 
 
